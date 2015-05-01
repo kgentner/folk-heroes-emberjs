@@ -1,4 +1,5 @@
-//Citation: This work is a modification of the Ember.js tutorial by Tom Dale at http://youtu.be/1QHrlFlaXdI.
+//Citation: This work is a modification of the Ember.js tutorial by Tom Dale
+//at http://youtu.be/1QHrlFlaXdI.
 
 //Create Ember.js application
 App = Ember.Application.create({});
