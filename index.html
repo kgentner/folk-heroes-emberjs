@@ -1,0 +1,116 @@
+<!-- Citation: This work is a modification of the Ember.js tutorial by Tom Dale at http://youtu.be/1QHrlFlaXdI.-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Folk Heroes with Ember.js</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap-combined.min.css">
+</head>
+<body>
+
+<!-- main section - includes "add new hero link" and list of links to current heroes-->
+  <script type="text/x-handlebars" >
+    <div class="navbar well">
+      <h2>Folk Hero Listing <small>with Ember.js</small></h2>
+    </div>
+    <div class="span3">
+      <div class="well">
+        {{#link-to 'newhero'}}+Add New Folk Hero{{/link-to}}
+      </div>
+      <div class="well">
+        <h5>Select to View, Edit, or Delete</h5>
+        <table class='table'>
+        <tbody>
+            {{#each}}
+              <tr>
+                <td>
+                  {{#link-to 'hero' this}}
+                    {{#if lastName}}{{lastName}}, {{firstName}}{{else}}{{firstName}}{{/if}}{{/link-to}}
+                </td>
+              </tr>
+            {{/each}}
+            </tbody>
+        </table>
+      </div>
+    </div>
+    {{outlet}}
+  </script>
+
+ <!-- hero 's full record / and logic for opening edit window-->
+  <script type="text/x-handlebars" id="hero">
+    <div class="span3 well">
+      <h4>Current Folk Hero</h4>
+      <br>
+      <table>
+        <tbody>
+          <tr>
+            <th align="left">Hero ID#:</th>
+            <td align= "left">{{id}}</td>
+          </tr>
+          <tr>
+            <th align="left">First Name:</th>
+            <td align="left">{{firstName}}</td>
+          </tr>
+          <tr>
+            <th align="left">Last Name:</th>
+            <td align="left">{{lastName}}</td>
+          </tr>
+          <tr>
+            <th align="left">e-mail:</th>
+            <td align="left">{{email}}</td>
+          </tr>
+        </tbody>
+        </table>
+      <br>
+      {{#if isEditing}}
+        {{partial 'hero/edit'}}
+          <button {{action 'doneEditing'}}>Done</button>
+      {{else}}
+        <p type="text" id='heroNumber'>{{id}}</p>
+        <button {{action 'edit'}}>Edit</button>
+        <button {{action 'deleteHero'}}>Delete</button>
+        {{#link-to 'index'}}
+          <button>Close</button>
+        {{/link-to}}
+      {{/if}}
+
+    </div>
+  </script>
+
+    <!-- editing section open-->
+  <script type="text/x-handlebars" id="hero/_edit">
+   <div>
+      {{input type="text" id='fname' value=firstName placeholder='first name (required)'}}
+      {{input type="text" id='lname' value=lastName placeholder='last name'}}
+      {{input type="text" id='email'  value=email placeholder='e-mail'}}
+   </div>
+  </script>
+
+    <!-- new hero section open-->
+  <script type="text/x-handlebars" id="newhero">
+    <div class="span3 well">
+      <form id="nuInput" {{action "addHero" on="submit"}}>
+        <h4>New Folk Hero</h4>
+        <br>
+        <div>
+          {{input type="text" id='first' placeholder='first name (required)'}}
+          {{input type="text" id='last' placeholder='last name'}}
+          {{input type="text" id='mail' placeholder='e-mail'}}
+        </div>
+        <br>
+          <button type="submit">Add</button>
+          {{#link-to 'index'}}
+            <button>Cancel</button>
+          {{/link-to}}
+      </form>
+    </div>
+  </script>
+  <script src="./js/lib/jquery-v1.11.1.js" type="text/javascript"></script>
+  <script src="./js/lib/bootstrap.min.js" type="text/javascript"></script>
+  <script src="./js/lib/handlebars-v1.3.0.js" type="text/javascript"></script>
+  <script src="./js/lib/ember-v1.6.1.js" type="text/javascript"></script>
+  <script src="./js/app.js" type="text/javascript"></script>
+
+</body>
+</html>
